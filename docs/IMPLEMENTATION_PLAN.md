@@ -50,6 +50,8 @@ Las páginas públicas leen solo versiones publicadas. El desarrollo local puede
 - Supabase: migraciones `20260924161445_bootstrap` y `20260925052424_tighten_function_grants_and_read_policies` aplicadas. Tres herramientas, tres versiones y tres entradas de auditoría. Seed repetido sin duplicados.
 - Permisos comprobados con fixtures transaccionales y rollback para anónimo, usuario normal y admin. Avisos de seguridad de Supabase: cero tras restringir la función de event trigger preexistente. Trigger de habilitación RLS conservado.
 - Indexación global desactivada; las herramientas también respetan `is_indexable`. Sin publicidad, IA, publicación web/social ni workers activos.
-- Vercel reconoce el equipo tras reautorizar el conector. La preview y GitHub se preparan después de estas comprobaciones.
+- PR #1 integrado en `main` (`47afdf4`) y CI de GitHub aprobado. Despliegue de producción `dpl_4j1NqG5eBUPpU4N9xi3ovqPGAaAf` en estado `READY`, con catálogo real en <https://project-automatic-adsence.vercel.app>.
+- 14 pruebas Playwright aprobadas también contra la URL pública, incluyendo copia y eventos locales, en escritorio y móvil. Canonical con el dominio público y `noindex` confirmados en navegador; consulta de logs de error del despliegue tras las pruebas sin resultados.
+- La configuración pública de esta entrega se envió en un `.env.production` exclusivo del despliegue, fuera de Git. Quedan pendientes las variables en los ajustes de Vercel y la conexión Git para desplegar automáticamente al hacer push; el conector permite subir archivos pero no configurar esas operaciones.
 
 No se ha probado el login con una cuenta administradora real: todavía debe provisionarse en Supabase Auth. La autenticación sí cuenta con pruebas unitarias y comprobación de la redirección de acceso anónimo. CRUD, aprobación y publicación editorial corresponden a la siguiente fase.
