@@ -18,7 +18,7 @@ export default async function HomePage() {
         <div className="hero-copy">
           <span className="eyebrow hero-eyebrow"><span className="status-dot" />Pequeñas herramientas. Grandes atajos.</span>
           <h1>Menos vueltas.<br />Más <span className="hero-word">claro<span className="hero-word-dot">.</span><svg viewBox="0 0 260 18" fill="none" aria-hidden="true"><path d="M3 12C68 2 171 1 253 8M14 16C92 8 172 8 244 13" stroke="currentColor" strokeWidth="3" strokeLinecap="round" /></svg></span></h1>
-          <p className="hero-description">Cálculos, fechas y conversiones.<br />Resuelve lo cotidiano y sigue con tu día.</p>
+          <p className="hero-description">Cálculos, fechas y conversiones.<br />{" "}Resuelve lo cotidiano y sigue con tu día.</p>
           <SearchForm />
           <div className="hero-benefits"><span><Check size={14} aria-hidden="true" />Gratis</span><span><Check size={14} aria-hidden="true" />Sin registro</span><span><Check size={14} aria-hidden="true" />A tu ritmo</span></div>
         </div>
