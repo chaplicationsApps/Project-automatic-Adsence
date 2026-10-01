@@ -65,7 +65,7 @@ test("search, empty results and category navigation", async ({ page }) => {
   await expect(page.locator("a[href='/herramientas/conversor-longitud']")).toBeVisible();
 });
 
-test("copying and local events never include calculator inputs", async ({ page, context }) => {
+test("copying and local events never include calculator inputs", async ({ page, context, baseURL }) => {
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);
   await page.addInitScript(() => {
     const events: unknown[] = [];
@@ -81,7 +81,7 @@ test("copying and local events never include calculator inputs", async ({ page, 
   expect(await page.evaluate(() => navigator.clipboard.readText())).toContain("12");
   await page.getByRole("button", { name: "Copiar enlace" }).click();
   await expect(page.getByRole("status")).toContainText("Enlace copiado");
-  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe("http://127.0.0.1:3000/herramientas/calculadora-porcentajes");
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(new URL("/herramientas/calculadora-porcentajes", baseURL).href);
   const events = await page.evaluate(() => (window as Window & { toolEvents?: Record<string, unknown>[] }).toolEvents ?? []);
   expect(events.map((event) => event.event)).toEqual(["tool_view", "tool_start", "tool_submit", "tool_complete", "result_copy", "share_click"]);
   for (const event of events) expect(Object.keys(event).sort()).toEqual(["category", "event", "tool_slug", "version"]);

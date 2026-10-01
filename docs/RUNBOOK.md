@@ -23,6 +23,29 @@ Los flags de integraciones se inicializan como `false` en `system_settings`. Tod
 
 Las variables `NEXT_PUBLIC_*` se incorporan durante el build: genera otro despliegue después de cambiarlas. Un healthcheck correcto solo verifica que responde la aplicación; no garantiza acceso a la base. Para comprobar la integración abre el catálogo y una herramienta.
 
+### Despliegue verificado — 25 de septiembre de 2026
+
+- URL pública: <https://project-automatic-adsence.vercel.app>.
+- Proyecto Vercel: `project-automatic-adsence`, equipo `jchamorrorodriguez-8538`.
+- Despliegue: `dpl_4j1NqG5eBUPpU4N9xi3ovqPGAaAf`, producción, estado `READY`, código de `47afdf4` (PR #1 integrado).
+- Catálogo real de Supabase operativo; indexación y servicios opcionales desactivados.
+- Verificación: 14 pruebas E2E aprobadas contra producción (escritorio y móvil), canonical y `noindex` comprobados en navegador y sin logs de error del despliegue durante la comprobación. No equivale a monitorización continua ni a una prueba de carga.
+- Se desplegó mediante el conector, enviando un `.env.production` exclusivo del despliegue con la URL/clave **publishable** y las opciones públicas de la aplicación. No se incluyeron claves privadas ni se guardó este archivo en Git. El intento anterior con `env` dentro de un `vercel.json` enviado como archivo no proporcionó las variables a la compilación.
+
+Después de verificar esa entrega, se guardaron las cinco variables de la tabla en los ajustes de Vercel para **Production y Preview** y se conectó `chaplicationsApps/Project-automatic-Adsence`. La rama de producción es `main` y la asignación automática del dominio está activada. Los próximos despliegues Git usarán las variables del proyecto; no necesitan un archivo de entorno en el repositorio. El primer merge posterior a esta conexión debe comprobarse en Deployments. El acceso con una cuenta administradora real sigue pendiente.
+
+### Repetir las pruebas sobre una URL publicada
+
+Las mismas pruebas de navegación, cálculo, copia y protección administrativa se pueden ejecutar contra un despliegue accesible, sin arrancar el servidor local. En PowerShell:
+
+```powershell
+$env:PLAYWRIGHT_BASE_URL = 'https://project-automatic-adsence.vercel.app'
+npm run test:e2e
+Remove-Item Env:PLAYWRIGHT_BASE_URL
+```
+
+Sin `PLAYWRIGHT_BASE_URL` se conserva la ejecución local habitual. Estas pruebas no escriben en la base de datos ni inician sesión como administrador; el login/logout con una cuenta real sigue siendo una comprobación aparte.
+
 ## Datos y migraciones
 
 Mantén el mismo historial de migraciones en local y remoto. Aplica DDL con Supabase CLI o `apply_migration`; usa SQL para datos. Antes de aplicar una migración a una base con datos reales revisa su efecto y respaldo.
